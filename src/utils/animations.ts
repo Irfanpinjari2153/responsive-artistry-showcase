@@ -20,7 +20,7 @@ export const staggerChildren = (selector: string, baseDelay: number = 100): void
   });
 };
 
-export const parallaxEffect = (element: HTMLElement, speed: number = 0.1): void => {
+export const parallaxEffect = (element: HTMLElement, speed: number = 0.1) => {
   const handleScroll = () => {
     const scrollY = window.scrollY;
     const yPos = scrollY * speed;
