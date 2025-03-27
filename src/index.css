@@ -59,6 +59,7 @@
 
   body {
     @apply bg-triaid-dark text-triaid-light font-sans antialiased;
+    overscroll-behavior-y: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -118,4 +119,57 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Reveal animations */
+.reveal-element {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal-element.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile enhancement */
+@media (max-width: 768px) {
+  .btn-primary {
+    @apply px-5 py-2.5 text-sm;
+  }
+  
+  .back-to-top {
+    @apply bottom-4 right-4 w-10 h-10;
+  }
+}
+
+/* Touch device enhancements */
+@media (hover: none) {
+  .nav-link:active::after {
+    @apply w-full opacity-100;
+  }
+  
+  .card-hover:active {
+    @apply -translate-y-1;
+  }
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s infinite;
 }

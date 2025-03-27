@@ -6,6 +6,7 @@ import Services from '@/components/Services';
 import Projects from '@/components/Projects';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import { revealOnScroll, createBackToTopButton } from '@/utils/animations';
 
 const Index: React.FC = () => {
   // Intersection Observer for revealing animations
@@ -27,9 +28,16 @@ const Index: React.FC = () => {
 
     const hiddenElements = document.querySelectorAll('.reveal');
     hiddenElements.forEach((el) => observer.observe(el));
+    
+    // Initialize reveal on scroll animations
+    revealOnScroll();
+    
+    // Create and handle back to top button
+    const cleanupBackToTop = createBackToTopButton();
 
     return () => {
       hiddenElements.forEach((el) => observer.unobserve(el));
+      cleanupBackToTop();
     };
   }, []);
 
@@ -37,10 +45,18 @@ const Index: React.FC = () => {
     <div className="relative min-h-screen bg-triaid-dark text-triaid-light overflow-x-hidden">
       <Navbar />
       <Hero />
-      <Services />
-      <Projects />
-      <Contact />
-      <Footer />
+      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+        <Services />
+      </div>
+      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+        <Projects />
+      </div>
+      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+        <Contact />
+      </div>
+      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+        <Footer />
+      </div>
     </div>
   );
 };

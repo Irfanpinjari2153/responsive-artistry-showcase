@@ -1,9 +1,12 @@
+
 import React from 'react';
 import Logo from './Logo';
-import { Linkedin, Twitter, Github, Facebook, Instagram, ChevronRight, Send } from 'lucide-react';
+import { Linkedin, Twitter, Github, Facebook, Instagram, ChevronRight, Send, Mail, MapPin, Phone } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const isMobile = useIsMobile();
   
   const services = [
     "Web Development",
@@ -30,17 +33,47 @@ const Footer: React.FC = () => {
     { icon: <Instagram size={18} />, href: "#", label: "Instagram" }
   ];
 
+  const contactInfo = [
+    { icon: <Mail size={16} />, info: "info@triaiddev.com" },
+    { icon: <Phone size={16} />, info: "+1 (555) 123-4567" },
+    { icon: <MapPin size={16} />, info: "123 Tech Street, San Francisco, CA" }
+  ];
+
   return (
     <footer className="bg-triaid-gray/10 pt-16 pb-6 relative">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-triaid-green/30 to-transparent"></div>
       
       <div className="container px-6">
+        {/* Contact info bar - visible only on larger screens */}
+        {!isMobile && (
+          <div className="mb-12 p-4 bg-triaid-gray/20 rounded-lg flex flex-wrap justify-between items-center">
+            {contactInfo.map((item, index) => (
+              <div key={index} className="flex items-center space-x-2 text-triaid-light/70">
+                <div className="text-triaid-green">{item.icon}</div>
+                <span>{item.info}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
           <div>
             <Logo className="mb-6" />
             <p className="text-triaid-light/70 mb-6">
               We specialize in creating innovative digital solutions that help businesses grow and succeed in the modern web landscape.
             </p>
+            
+            {/* Contact info - visible only on mobile */}
+            {isMobile && (
+              <div className="mb-6 space-y-3">
+                {contactInfo.map((item, index) => (
+                  <div key={index} className="flex items-center space-x-2 text-triaid-light/70">
+                    <div className="text-triaid-green">{item.icon}</div>
+                    <span>{item.info}</span>
+                  </div>
+                ))}
+              </div>
+            )}
             
             <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
@@ -64,9 +97,9 @@ const Footer: React.FC = () => {
             
             <ul className="space-y-3">
               {services.map((service, index) => (
-                <li key={index}>
-                  <a href="#services" className="text-triaid-light/70 hover:text-triaid-green transition-colors flex items-center">
-                    <ChevronRight size={16} className="mr-2 text-triaid-green" />
+                <li key={index} className="group">
+                  <a href="#services" className="text-triaid-light/70 group-hover:text-triaid-green transition-colors flex items-center">
+                    <ChevronRight size={16} className="mr-2 text-triaid-green transform group-hover:translate-x-1 transition-transform" />
                     {service}
                   </a>
                 </li>
@@ -82,9 +115,9 @@ const Footer: React.FC = () => {
             
             <ul className="space-y-3">
               {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a href={link.href} className="text-triaid-light/70 hover:text-triaid-green transition-colors flex items-center">
-                    <ChevronRight size={16} className="mr-2 text-triaid-green" />
+                <li key={index} className="group">
+                  <a href={link.href} className="text-triaid-light/70 group-hover:text-triaid-green transition-colors flex items-center">
+                    <ChevronRight size={16} className="mr-2 text-triaid-green transform group-hover:translate-x-1 transition-transform" />
                     {link.name}
                   </a>
                 </li>
@@ -110,7 +143,8 @@ const Footer: React.FC = () => {
               />
               <button
                 type="submit"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 w-9 h-9 bg-triaid-green rounded-md flex items-center justify-center text-triaid-dark"
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 w-9 h-9 bg-triaid-green rounded-md flex items-center justify-center text-triaid-dark hover:bg-triaid-green-dark transition-colors"
+                aria-label="Subscribe"
               >
                 <Send size={18} />
               </button>
@@ -125,13 +159,13 @@ const Footer: React.FC = () => {
             </p>
             
             <div className="flex space-x-6 mt-4 sm:mt-0">
-              <a href="#" className="text-triaid-light/60 hover:text-triaid-green text-sm">
+              <a href="#" className="text-triaid-light/60 hover:text-triaid-green text-sm transition-colors">
                 Privacy Policy
               </a>
-              <a href="#" className="text-triaid-light/60 hover:text-triaid-green text-sm">
+              <a href="#" className="text-triaid-light/60 hover:text-triaid-green text-sm transition-colors">
                 Terms of Service
               </a>
-              <a href="#" className="text-triaid-light/60 hover:text-triaid-green text-sm">
+              <a href="#" className="text-triaid-light/60 hover:text-triaid-green text-sm transition-colors">
                 Sitemap
               </a>
             </div>

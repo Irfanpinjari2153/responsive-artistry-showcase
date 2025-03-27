@@ -1,10 +1,24 @@
 
 import React, { useState, useEffect } from 'react';
 import Logo from './Logo';
+import { smoothScrollTo } from '@/utils/animations';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  
+  // Add scroll lock when menu is open on mobile
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +33,11 @@ const Navbar: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [scrolled]);
+  
+  const handleNavClick = (sectionId: string) => {
+    setMenuOpen(false);
+    smoothScrollTo(sectionId);
+  };
 
   return (
     <header
@@ -44,14 +63,24 @@ const Navbar: React.FC = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-8">
-          {['Home', 'Services', 'Projects', 'About', 'Contact'].map((item, index) => (
+          {[
+            { name: 'Home', id: 'home' },
+            { name: 'Services', id: 'services' },
+            { name: 'Projects', id: 'projects' },
+            { name: 'About', id: 'about' },
+            { name: 'Contact', id: 'contact' }
+          ].map((item, index) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
+              key={item.name}
+              href={`#${item.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick(item.id);
+              }}
               className="nav-link text-triaid-light hover:text-triaid-green"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              {item}
+              {item.name}
             </a>
           ))}
           <button className="btn-primary">Get Started</button>
@@ -64,13 +93,22 @@ const Navbar: React.FC = () => {
           menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        <nav className="flex flex-col items-center space-y-6 py-8">
-          {['Home', 'Services', 'Projects', 'About', 'Contact'].map((item, index) => (
+        <nav className="flex flex-col items-center space-y-8 py-8">
+          {[
+            { name: 'Home', id: 'home' },
+            { name: 'Services', id: 'services' },
+            { name: 'Projects', id: 'projects' },
+            { name: 'About', id: 'about' },
+            { name: 'Contact', id: 'contact' }
+          ].map((item, index) => (
             <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-2xl font-display text-triaid-light hover:text-triaid-green transition-colors"
-              onClick={() => setMenuOpen(false)}
+              key={item.name}
+              href={`#${item.id}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick(item.id);
+              }}
+              className="text-2xl font-display text-triaid-light hover:text-triaid-green transition-colors flex items-center group"
               style={{ 
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
@@ -78,7 +116,9 @@ const Navbar: React.FC = () => {
                 transitionDelay: `${index * 100}ms` 
               }}
             >
-              {item}
+              <span className="absolute left-0 transform -translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
+              {item.name}
+              <span className="absolute right-0 transform translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
             </a>
           ))}
           <button 
