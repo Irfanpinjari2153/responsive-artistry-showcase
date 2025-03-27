@@ -44,16 +44,18 @@ const Index: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-triaid-dark text-triaid-light overflow-x-hidden">
       <Navbar />
-      <Hero />
-      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+      <section id="home">
+        <Hero />
+      </section>
+      <section id="services" className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
         <Services />
-      </div>
-      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+      </section>
+      <section id="projects" className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
         <Projects />
-      </div>
-      <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
+      </section>
+      <section id="contact" className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
         <Contact />
-      </div>
+      </section>
       <div className="reveal-element transition-all duration-700 opacity-0 transform translate-y-10">
         <Footer />
       </div>

@@ -1,11 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
 import { smoothScrollTo } from '@/utils/animations';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
   
   // Add scroll lock when menu is open on mobile
   useEffect(() => {
@@ -34,10 +36,24 @@ const Navbar: React.FC = () => {
     };
   }, [scrolled]);
   
+  const isHomePage = location.pathname === '/';
+  
   const handleNavClick = (sectionId: string) => {
     setMenuOpen(false);
-    smoothScrollTo(sectionId);
+    
+    if (isHomePage) {
+      // On home page, smooth scroll to section
+      smoothScrollTo(sectionId);
+    }
   };
+
+  const navItems = [
+    { name: 'Home', path: '/', id: 'home' },
+    { name: 'Services', path: '/services', id: 'services' },
+    { name: 'Projects', path: '/projects', id: 'projects' },
+    { name: 'About', path: '/about', id: 'about' },
+    { name: 'Contact', path: '/contact', id: 'contact' }
+  ];
 
   return (
     <header
@@ -46,7 +62,9 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Logo className="animate-fade-in" size="md" />
+        <Link to="/" className="animate-fade-in">
+          <Logo size="md" />
+        </Link>
         
         {/* Mobile menu button */}
         <button
@@ -63,27 +81,23 @@ const Navbar: React.FC = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-8">
-          {[
-            { name: 'Home', id: 'home' },
-            { name: 'Services', id: 'services' },
-            { name: 'Projects', id: 'projects' },
-            { name: 'About', id: 'about' },
-            { name: 'Contact', id: 'contact' }
-          ].map((item, index) => (
-            <a
+          {navItems.map((item, index) => (
+            <Link
               key={item.name}
-              href={`#${item.id}`}
+              to={item.path}
               onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.id);
+                if (isHomePage && item.path === '/') {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }
               }}
               className="nav-link text-triaid-light hover:text-triaid-green"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               {item.name}
-            </a>
+            </Link>
           ))}
-          <button className="btn-primary">Get Started</button>
+          <Link to="/contact" className="btn-primary">Get Started</Link>
         </nav>
       </div>
       
@@ -94,19 +108,16 @@ const Navbar: React.FC = () => {
         }`}
       >
         <nav className="flex flex-col items-center space-y-8 py-8">
-          {[
-            { name: 'Home', id: 'home' },
-            { name: 'Services', id: 'services' },
-            { name: 'Projects', id: 'projects' },
-            { name: 'About', id: 'about' },
-            { name: 'Contact', id: 'contact' }
-          ].map((item, index) => (
-            <a
+          {navItems.map((item, index) => (
+            <Link
               key={item.name}
-              href={`#${item.id}`}
+              to={item.path}
               onClick={(e) => {
-                e.preventDefault();
-                handleNavClick(item.id);
+                if (isHomePage && item.path === '/') {
+                  e.preventDefault();
+                  handleNavClick(item.id);
+                }
+                setMenuOpen(false);
               }}
               className="text-2xl font-display text-triaid-light hover:text-triaid-green transition-colors flex items-center group"
               style={{ 
@@ -119,10 +130,12 @@ const Navbar: React.FC = () => {
               <span className="absolute left-0 transform -translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
               {item.name}
               <span className="absolute right-0 transform translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
-            </a>
+            </Link>
           ))}
-          <button 
+          <Link 
+            to="/contact"
             className="btn-primary mt-4"
+            onClick={() => setMenuOpen(false)}
             style={{ 
               opacity: menuOpen ? 1 : 0,
               transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
@@ -131,7 +144,7 @@ const Navbar: React.FC = () => {
             }}
           >
             Get Started
-          </button>
+          </Link>
         </nav>
       </div>
     </header>
