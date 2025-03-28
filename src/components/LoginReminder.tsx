@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 
-const LOGIN_REMINDER_DELAY = 60000; // 1 minute in milliseconds
+const LOGIN_REMINDER_DELAY = 30000; // 30 seconds in milliseconds
 
 const LoginReminder: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
