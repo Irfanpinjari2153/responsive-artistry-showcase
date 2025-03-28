@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from './Logo';
 import { smoothScrollTo } from '@/utils/animations';
+import { useAuth } from '@/contexts/AuthContext';
+import { LogIn, UserPlus, User, LogOut } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const { isAuthenticated, user, logout } = useAuth();
   
   // Add scroll lock when menu is open on mobile
   useEffect(() => {
@@ -45,6 +48,11 @@ const Navbar: React.FC = () => {
       // On home page, smooth scroll to section
       smoothScrollTo(sectionId);
     }
+  };
+
+  const handleLogout = () => {
+    logout();
+    setMenuOpen(false);
   };
 
   const navItems = [
@@ -97,7 +105,40 @@ const Navbar: React.FC = () => {
               {item.name}
             </Link>
           ))}
-          <Link to="/contact" className="btn-primary">Get Started</Link>
+          
+          {/* Authentication Links for Desktop */}
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2 text-triaid-light">
+              <div className="flex items-center gap-2">
+                <User size={16} />
+                <span>{user?.name}</span>
+              </div>
+              <button 
+                onClick={handleLogout}
+                className="flex items-center gap-1 text-triaid-light hover:text-triaid-green"
+              >
+                <LogOut size={16} />
+                <span>Logout</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-4">
+              <Link 
+                to="/login" 
+                className="nav-link flex items-center gap-1 text-triaid-light hover:text-triaid-green"
+              >
+                <LogIn size={16} />
+                <span>Login</span>
+              </Link>
+              <Link 
+                to="/signup" 
+                className="btn-primary flex items-center gap-1"
+              >
+                <UserPlus size={16} />
+                <span>Sign Up</span>
+              </Link>
+            </div>
+          )}
         </nav>
       </div>
       
@@ -132,19 +173,68 @@ const Navbar: React.FC = () => {
               <span className="absolute right-0 transform translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
             </Link>
           ))}
-          <Link 
-            to="/contact"
-            className="btn-primary mt-4"
-            onClick={() => setMenuOpen(false)}
-            style={{ 
-              opacity: menuOpen ? 1 : 0,
-              transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-              transition: `opacity 0.5s ease, transform 0.5s ease`,
-              transitionDelay: '500ms'
-            }}
-          >
-            Get Started
-          </Link>
+          
+          {/* Authentication Links for Mobile */}
+          {isAuthenticated ? (
+            <>
+              <div 
+                className="text-xl text-triaid-light flex items-center gap-2"
+                style={{ 
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+                  transition: `opacity 0.5s ease, transform 0.5s ease`,
+                  transitionDelay: '500ms'
+                }}
+              >
+                <User />
+                <span>{user?.name}</span>
+              </div>
+              <button 
+                onClick={handleLogout}
+                className="text-xl text-triaid-light hover:text-triaid-green flex items-center gap-2"
+                style={{ 
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+                  transition: `opacity 0.5s ease, transform 0.5s ease`,
+                  transitionDelay: '600ms'
+                }}
+              >
+                <LogOut />
+                <span>Logout</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <Link 
+                to="/login"
+                className="text-xl text-triaid-light hover:text-triaid-green flex items-center gap-2"
+                onClick={() => setMenuOpen(false)}
+                style={{ 
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+                  transition: `opacity 0.5s ease, transform 0.5s ease`,
+                  transitionDelay: '500ms'
+                }}
+              >
+                <LogIn />
+                <span>Login</span>
+              </Link>
+              <Link 
+                to="/signup"
+                className="btn-primary text-xl flex items-center gap-2"
+                onClick={() => setMenuOpen(false)}
+                style={{ 
+                  opacity: menuOpen ? 1 : 0,
+                  transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
+                  transition: `opacity 0.5s ease, transform 0.5s ease`,
+                  transitionDelay: '600ms'
+                }}
+              >
+                <UserPlus />
+                <span>Sign Up</span>
+              </Link>
+            </>
+          )}
         </nav>
       </div>
     </header>
