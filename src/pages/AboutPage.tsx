@@ -11,28 +11,28 @@ const AboutPage: React.FC = () => {
     {
       name: "Irfan",
       role: "Co-Founder & Head of Growth and Product",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop",
       icon: <Rocket className="h-5 w-5 text-triaid-green" />,
       description: "Leading our product strategy and business growth initiatives with innovative approaches to digital product development."
     },
     {
       name: "Sherya",
       role: "Co-Founder & Head of Brand",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop",
       icon: <Star className="h-5 w-5 text-triaid-green" />,
       description: "Driving our brand identity and creative direction with expertise in digital marketing and user experience design."
     },
     {
       name: "Dev",
       role: "Co-Founder & Tech Lead",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=1170&auto=format&fit=crop",
       icon: <Code className="h-5 w-5 text-triaid-green" />,
       description: "Spearheading our DevOps practices and backend architecture with deep expertise in cloud infrastructure and system optimization."
     },
     {
       name: "Kasif",
       role: "Co-Founder & Tech Lead",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1974&auto=format&fit=crop",
       icon: <Code className="h-5 w-5 text-triaid-green" />,
       description: "Architecting our technical solutions with specialization in full-stack development, particularly frontend technologies and user interfaces."
     }
