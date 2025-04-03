@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code2, Database, Globe, Server, Braces, Layers } from 'lucide-react';
+import { Code2, Database, Globe, Server, Braces, Layers, Cloud } from 'lucide-react';
 
 interface ServiceCardProps {
   icon: React.ReactNode;
@@ -71,6 +71,12 @@ const Services: React.FC = () => {
       title: "Backend Development",
       description: "Secure, efficient, and scalable server-side applications with RESTful APIs and database integration.",
       linkPath: "/services/backend"
+    },
+    {
+      icon: <Cloud size={30} />,
+      title: "CloudOps/DevOps",
+      description: "Streamlined infrastructure management, CI/CD pipelines, and cloud-native solutions for optimal application deployment.",
+      linkPath: "/services/cloudops-devops"
     }
   ];
 

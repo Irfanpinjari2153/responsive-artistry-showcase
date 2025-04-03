@@ -21,6 +21,7 @@ import MeanStackPage from "./pages/MeanStackPage";
 import MernStackPage from "./pages/MernStackPage";
 import FrontendPage from "./pages/FrontendPage";
 import BackendPage from "./pages/BackendPage";
+import CloudOpsDevOpsPage from "./pages/CloudOpsDevOpsPage";
 
 const App = () => {
   // Create a client inside the component function to ensure proper React context
@@ -43,6 +44,7 @@ const App = () => {
               <Route path="/services/mern-stack" element={<MernStackPage />} />
               <Route path="/services/frontend" element={<FrontendPage />} />
               <Route path="/services/backend" element={<BackendPage />} />
+              <Route path="/services/cloudops-devops" element={<CloudOpsDevOpsPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
