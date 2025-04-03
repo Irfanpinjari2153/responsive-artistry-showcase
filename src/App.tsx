@@ -15,6 +15,12 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import NotFound from "./pages/NotFound";
 import LoginReminder from "./components/LoginReminder";
+import WebDevelopmentPage from "./pages/WebDevelopmentPage";
+import WebAppPage from "./pages/WebAppPage";
+import MeanStackPage from "./pages/MeanStackPage";
+import MernStackPage from "./pages/MernStackPage";
+import FrontendPage from "./pages/FrontendPage";
+import BackendPage from "./pages/BackendPage";
 
 const App = () => {
   // Create a client inside the component function to ensure proper React context
@@ -31,6 +37,12 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/services" element={<ServicesPage />} />
+              <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+              <Route path="/services/web-app-development" element={<WebAppPage />} />
+              <Route path="/services/mean-stack" element={<MeanStackPage />} />
+              <Route path="/services/mern-stack" element={<MernStackPage />} />
+              <Route path="/services/frontend" element={<FrontendPage />} />
+              <Route path="/services/backend" element={<BackendPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />

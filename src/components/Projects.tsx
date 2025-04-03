@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Github, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 
 interface Project {
@@ -10,8 +10,6 @@ interface Project {
   image: string;
   technologies: string[];
   category: 'frontend' | 'backend' | 'fullstack';
-  link: string;
-  github?: string;
   longDescription?: string;
   features?: string[];
 }
@@ -32,8 +30,6 @@ const Projects: React.FC = () => {
       image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
       technologies: ["React", "Node.js", "MongoDB", "Express", "Redux", "Stripe"],
       category: "fullstack",
-      link: "#",
-      github: "#",
       features: [
         "Responsive design for all devices",
         "User authentication and profiles",
@@ -51,7 +47,6 @@ const Projects: React.FC = () => {
       image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
       technologies: ["Angular", "D3.js", "Node.js", "MongoDB", "Socket.io"],
       category: "frontend",
-      link: "#",
       features: [
         "Real-time data updates",
         "Interactive visualization with D3.js",
@@ -68,8 +63,6 @@ const Projects: React.FC = () => {
       image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
       technologies: ["React", "GraphQL", "Node.js", "PostgreSQL", "Apollo"],
       category: "fullstack",
-      link: "#",
-      github: "#",
       features: [
         "Rich text editing capabilities",
         "Media library management",
@@ -86,8 +79,6 @@ const Projects: React.FC = () => {
       image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
       technologies: ["Node.js", "Express", "Redis", "MongoDB", "Docker"],
       category: "backend",
-      link: "#",
-      github: "#",
       features: [
         "Unified API gateway",
         "Authentication and authorization",
@@ -104,7 +95,6 @@ const Projects: React.FC = () => {
       image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
       technologies: ["React", "Workbox", "IndexedDB", "PWA"],
       category: "frontend",
-      link: "#",
       features: [
         "Offline functionality",
         "Push notifications",
@@ -121,8 +111,6 @@ const Projects: React.FC = () => {
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475",
       technologies: ["Socket.io", "React", "Node.js", "MongoDB", "Redis"],
       category: "fullstack",
-      link: "#",
-      github: "#",
       features: [
         "Real-time messaging",
         "Group chat functionality",
@@ -242,28 +230,6 @@ const Projects: React.FC = () => {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-triaid-dark/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 flex gap-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <a 
-                        href={project.link} 
-                        className="w-10 h-10 rounded-full bg-triaid-green/90 flex items-center justify-center text-triaid-dark hover:bg-triaid-green transition-colors"
-                        title="Live Demo"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink size={18} />
-                      </a>
-                      {project.github && (
-                        <a 
-                          href={project.github} 
-                          className="w-10 h-10 rounded-full bg-triaid-gray/80 flex items-center justify-center text-triaid-light hover:bg-triaid-gray transition-colors"
-                          title="View Code"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Github size={18} />
-                        </a>
-                      )}
-                    </div>
-                  </div>
                   <div className="absolute top-3 right-3 px-3 py-1 bg-triaid-dark/80 backdrop-blur-sm rounded-full text-xs text-triaid-light border border-triaid-gray/30">
                     {project.category}
                   </div>
@@ -364,29 +330,6 @@ const Projects: React.FC = () => {
                       </ul>
                     </div>
                   )}
-                  
-                  <div className="flex flex-wrap gap-4 mt-6">
-                    <a 
-                      href={selectedProject.link} 
-                      className="px-4 py-2 bg-triaid-green text-triaid-dark font-medium rounded-md flex items-center gap-2 hover:bg-triaid-green-dark transition-colors"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ExternalLink size={16} />
-                      View Live Demo
-                    </a>
-                    {selectedProject.github && (
-                      <a 
-                        href={selectedProject.github} 
-                        className="px-4 py-2 bg-triaid-gray/50 text-triaid-light font-medium rounded-md flex items-center gap-2 hover:bg-triaid-gray transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Github size={16} />
-                        View Source Code
-                      </a>
-                    )}
-                  </div>
                 </div>
               </>
             )}

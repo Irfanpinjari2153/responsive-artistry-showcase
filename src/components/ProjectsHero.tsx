@@ -7,15 +7,12 @@ import {
   CarouselPrevious,
   CarouselNext
 } from '@/components/ui/carousel';
-import { ExternalLink, Github } from 'lucide-react';
 
 interface FeaturedProject {
   id: number;
   title: string;
   description: string;
   image: string;
-  link: string;
-  github?: string;
 }
 
 const ProjectsHero: React.FC = () => {
@@ -24,25 +21,19 @@ const ProjectsHero: React.FC = () => {
       id: 1,
       title: "E-Commerce Platform",
       description: "A complete online shopping solution with product catalog, shopping cart, and secure payment gateway integration.",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
-      link: "#",
-      github: "#"
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
     },
     {
       id: 2,
       title: "Real-time Analytics Dashboard",
       description: "Interactive data visualization with real-time updates for business intelligence and performance monitoring.",
-      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-      link: "#",
-      github: "#"
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
     },
     {
       id: 3,
       title: "Progressive Web App",
       description: "Mobile-first web application with offline capabilities and app-like experience for modern users.",
-      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      link: "#",
-      github: "#"
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b"
     }
   ];
 
@@ -87,24 +78,6 @@ const ProjectsHero: React.FC = () => {
                       <div className="p-6 md:w-1/2 flex flex-col justify-center">
                         <h3 className="hidden md:block text-2xl font-bold text-white mb-4">{project.title}</h3>
                         <p className="text-triaid-light/80 mb-6">{project.description}</p>
-                        <div className="flex gap-4 mt-auto">
-                          <a 
-                            href={project.link} 
-                            className="px-4 py-2 bg-triaid-green text-triaid-dark font-medium rounded-md flex items-center gap-2 hover:bg-triaid-green-dark transition-colors"
-                          >
-                            <ExternalLink size={16} />
-                            View Project
-                          </a>
-                          {project.github && (
-                            <a 
-                              href={project.github} 
-                              className="px-4 py-2 bg-triaid-gray/50 text-triaid-light font-medium rounded-md flex items-center gap-2 hover:bg-triaid-gray transition-colors"
-                            >
-                              <Github size={16} />
-                              Source Code
-                            </a>
-                          )}
-                        </div>
                       </div>
                     </div>
                   </div>
