@@ -13,7 +13,7 @@ const AboutPage: React.FC = () => {
       role: "Co-Founder & Head of Growth and Product",
       image: "/placeholder.svg",
       icon: <Rocket className="h-5 w-5 text-triaid-green" />,
-      description: "Leading our product strategy and business growth initiatives with over 10 years of experience in scaling digital products."
+      description: "Leading our product strategy and business growth initiatives with innovative approaches to digital product development."
     },
     {
       name: "Sherya",
@@ -27,14 +27,14 @@ const AboutPage: React.FC = () => {
       role: "Co-Founder & Tech Lead",
       image: "/placeholder.svg",
       icon: <Code className="h-5 w-5 text-triaid-green" />,
-      description: "Architecting our technical solutions with deep expertise in full-stack development and system architecture."
+      description: "Spearheading our DevOps practices and backend architecture with deep expertise in cloud infrastructure and system optimization."
     },
     {
       name: "Kasif",
       role: "Co-Founder & Tech Lead",
       image: "/placeholder.svg",
       icon: <Code className="h-5 w-5 text-triaid-green" />,
-      description: "Spearheading our backend infrastructure and DevOps practices with specialization in cloud technologies."
+      description: "Architecting our technical solutions with specialization in full-stack development, particularly frontend technologies and user interfaces."
     }
   ];
 
