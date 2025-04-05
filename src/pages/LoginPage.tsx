@@ -9,7 +9,7 @@ import { Form, FormField, FormItem, FormLabel, FormControl } from '@/components/
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const loginSchema = z.object({

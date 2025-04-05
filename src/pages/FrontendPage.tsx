@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceDetail from '@/components/ServiceDetail';
 import { Layers } from 'lucide-react';
