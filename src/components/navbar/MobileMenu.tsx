@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LogIn, LogOut, User, UserPlus } from 'lucide-react';
+import { LogIn, LogOut, User, UserPlus, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface MobileMenuProps {
@@ -22,101 +22,137 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   setMenuOpen
 }) => {
   const { isAuthenticated, user } = useAuth();
+  const [activeTab, setActiveTab] = useState('Services');
+  
+  // Service categories and their items
+  const menuCategories = [
+    {
+      name: 'Services',
+      items: [
+        { name: 'Web Development', path: '/services/web-development' },
+        { name: 'Web App Development', path: '/services/web-app-development' },
+        { name: 'MEAN Stack', path: '/services/mean-stack' },
+        { name: 'MERN Stack', path: '/services/mern-stack' },
+        { name: 'Frontend', path: '/services/frontend' },
+        { name: 'Backend', path: '/services/backend' },
+        { name: 'CloudOps/DevOps', path: '/services/cloudops-devops' },
+      ]
+    },
+    {
+      name: 'Resources',
+      items: [
+        { name: 'Documentation', path: '/resources/documentation' },
+        { name: 'Tutorials', path: '/resources/tutorials' },
+        { name: 'Blog', path: '/resources/blog' },
+      ]
+    },
+    {
+      name: 'Company',
+      items: [
+        { name: 'About', path: '/about' },
+        { name: 'Contact', path: '/contact' },
+        { name: 'Projects', path: '/projects' },
+      ]
+    }
+  ];
 
   return (
     <div 
-      className={`fixed inset-0 bg-triaid-dark/95 backdrop-blur-2xl z-40 lg:hidden flex flex-col justify-center items-center transition-all duration-500 ${
+      className={`fixed inset-0 bg-black/95 z-40 lg:hidden flex flex-col transition-all duration-500 ${
         menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}
     >
-      <nav className="flex flex-col items-center space-y-8 py-8">
-        {navItems.map((item, index) => (
-          <Link
-            key={item.name}
-            to={item.path}
-            onClick={(e) => {
-              if (isHomePage && item.path === '/') {
-                e.preventDefault();
-                handleNavClick(item.id);
-              }
-              setMenuOpen(false);
-            }}
-            className="text-2xl font-display text-triaid-light hover:text-triaid-green transition-colors flex items-center group"
-            style={{ 
-              opacity: menuOpen ? 1 : 0,
-              transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-              transition: `opacity 0.5s ease, transform 0.5s ease`,
-              transitionDelay: `${index * 100}ms` 
-            }}
+      {/* Close Button */}
+      <div className="flex justify-between items-center p-6 border-b border-white/10">
+        <Link to="/" onClick={() => setMenuOpen(false)}>
+          <img 
+            src="/lovable-uploads/4a6c77aa-5fd3-4192-9997-8725e2336bdb.png" 
+            alt="Logo" 
+            className="h-8" 
+          />
+        </Link>
+        <button 
+          onClick={() => setMenuOpen(false)}
+          className="text-white p-2"
+        >
+          <X size={24} />
+        </button>
+      </div>
+      
+      {/* Tab Navigation */}
+      <div className="flex w-full border-b border-white/10">
+        {menuCategories.map((category) => (
+          <button
+            key={category.name}
+            className={`flex-1 py-4 px-2 text-center ${
+              activeTab === category.name 
+                ? 'bg-blue-500 text-white' 
+                : 'bg-black text-white/70'
+            }`}
+            onClick={() => setActiveTab(category.name)}
           >
-            <span className="absolute left-0 transform -translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
-            {item.name}
-            <span className="absolute right-0 transform translate-x-10 opacity-0 group-hover:opacity-100 text-triaid-green transition-all duration-300">•</span>
-          </Link>
+            {category.name}
+          </button>
         ))}
-        
-        {/* Authentication Links for Mobile */}
+      </div>
+      
+      {/* Tab Content */}
+      <div className="flex-1 overflow-y-auto">
+        {menuCategories
+          .filter(category => category.name === activeTab)
+          .map((category) => (
+            <div key={category.name} className="p-4">
+              {category.items.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setMenuOpen(false)}
+                  className="block py-5 px-4 text-white text-xl border-b border-white/10"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          ))}
+      </div>
+      
+      {/* Authentication Links */}
+      <div className="border-t border-white/10 p-4">
         {isAuthenticated ? (
-          <>
-            <div 
-              className="text-xl text-triaid-light flex items-center gap-2"
-              style={{ 
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `opacity 0.5s ease, transform 0.5s ease`,
-                transitionDelay: '500ms'
-              }}
-            >
-              <User />
+          <div className="flex flex-col space-y-4">
+            <div className="flex items-center gap-2 text-white">
+              <User size={20} />
               <span>{user?.name}</span>
             </div>
             <button 
               onClick={handleLogout}
-              className="text-xl text-triaid-light hover:text-triaid-green flex items-center gap-2"
-              style={{ 
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `opacity 0.5s ease, transform 0.5s ease`,
-                transitionDelay: '600ms'
-              }}
+              className="flex items-center gap-2 text-white"
             >
-              <LogOut />
+              <LogOut size={20} />
               <span>Logout</span>
             </button>
-          </>
+          </div>
         ) : (
-          <>
+          <div className="flex flex-col space-y-4">
             <Link 
               to="/login"
-              className="text-xl text-triaid-light hover:text-triaid-green flex items-center gap-2"
+              className="flex items-center gap-2 text-white"
               onClick={() => setMenuOpen(false)}
-              style={{ 
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `opacity 0.5s ease, transform 0.5s ease`,
-                transitionDelay: '500ms'
-              }}
             >
-              <LogIn />
+              <LogIn size={20} />
               <span>Login</span>
             </Link>
             <Link 
               to="/signup"
-              className="btn-primary text-xl flex items-center gap-2"
+              className="btn-primary flex items-center justify-center gap-2"
               onClick={() => setMenuOpen(false)}
-              style={{ 
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? 'translateY(0)' : 'translateY(20px)',
-                transition: `opacity 0.5s ease, transform 0.5s ease`,
-                transitionDelay: '600ms'
-              }}
             >
-              <UserPlus />
+              <UserPlus size={20} />
               <span>Sign Up</span>
             </Link>
-          </>
+          </div>
         )}
-      </nav>
+      </div>
     </div>
   );
 };
