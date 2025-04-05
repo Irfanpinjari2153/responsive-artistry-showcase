@@ -25,7 +25,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 
   return (
     <div 
-      className={`fixed inset-0 bg-triaid-dark/95 backdrop-blur-xl z-40 lg:hidden flex flex-col justify-center items-center transition-all duration-500 ${
+      className={`fixed inset-0 bg-triaid-dark/95 backdrop-blur-2xl z-40 lg:hidden flex flex-col justify-center items-center transition-all duration-500 ${
         menuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
       }`}
     >
